@@ -1,0 +1,20 @@
+settings:
+  priority: 1
+
+lines:
+  - frames:
+      - "TECH TEST"
+    interval: 10
+  - frames:
+      - "L"
+      - "Li"
+      - "Lin"
+      - "Line"
+      - "Line 1"
+    interval: 5
+  - frames:
+      - "Line 2"
+  - frames:
+      - "Line 3"
+  - frames:
+      - "Line 4"
