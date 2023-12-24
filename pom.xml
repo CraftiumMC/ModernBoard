@@ -38,6 +38,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- ScoreboardLibrary -->
         <dependency>
             <groupId>com.github.MegavexNetwork.scoreboard-library</groupId>
             <artifactId>scoreboard-library-api</artifactId>
@@ -56,6 +57,14 @@
             <artifactId>scoreboard-library-modern</artifactId>
             <version>${scoreboardlib.version}</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- Configurate -->
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>configurate-yaml</artifactId>
+            <version>4.1.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
