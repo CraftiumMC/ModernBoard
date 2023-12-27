@@ -1,5 +1,4 @@
-settings:
-  priority: 1
+priority: 1
 
 lines:
   - frames:

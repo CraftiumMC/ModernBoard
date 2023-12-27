@@ -1,6 +1,7 @@
 package net.craftium.modernboard.config.loader;
 
 import net.craftium.modernboard.ModernBoard;
+import net.craftium.modernboard.boards.SidebarSettings;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
@@ -32,12 +33,17 @@ public abstract class Configuration
 
     private ConfigurationReference<CommentedConfigurationNode> config;
 
+    protected Configuration(ModernBoard plugin, File file)
+    {
+        this(plugin, file, null);
+    }
+
     protected Configuration(ModernBoard plugin, String fileName, String templateFile)
     {
         this(plugin, new File(plugin.getDataFolder(), fileName), templateFile);
     }
 
-    public Configuration(ModernBoard plugin, File file, String templateFile)
+    protected Configuration(ModernBoard plugin, File file, String templateFile)
     {
         this.logger = plugin.getSLF4JLogger();
         this.plugin = plugin;
@@ -154,7 +160,10 @@ public abstract class Configuration
     {
         try
         {
-            return config.get(path(key)).get(clazz, def);
+            if(key == null)
+                return config.node().get(clazz, def);
+            else
+                return config.get(path(key)).get(clazz, def);
         }
         catch(SerializationException e)
         {
@@ -207,5 +216,6 @@ public abstract class Configuration
     }
 
     protected static final TypeSerializerCollection SERIALIZERS = TypeSerializerCollection.defaults().childBuilder()
+            .register(SidebarSettings.class, new SidebarSettingsSerializer())
             .build();
 }
