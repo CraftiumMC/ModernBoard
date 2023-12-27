@@ -8,16 +8,19 @@ import org.spongepowered.configurate.serialize.TypeSerializer;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SidebarSettingsSerializer implements TypeSerializer<SidebarSettings>
 {
     @Override
     public SidebarSettings deserialize(Type type, ConfigurationNode node) throws SerializationException
     {
+        AtomicInteger index = new AtomicInteger();
         List<SidebarSettings.Line> lines = new LinkedList<>();
         for(ConfigurationNode lineConfig : node.node("lines").childrenList())
         {
             lines.add(new SidebarSettings.Line(
+                    index.getAndIncrement(),
                     lineConfig.node("interval").getInt(10),
                     lineConfig.node("frames").getList(String.class)
             ));

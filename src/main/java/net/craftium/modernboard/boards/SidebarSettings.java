@@ -1,20 +1,28 @@
 package net.craftium.modernboard.boards;
 
+import net.craftium.modernboard.utils.FrameList;
+
 import java.util.List;
 
 public record SidebarSettings(int priority, List<Line> lines)
 {
     public static class Line
     {
-        private final int interval;
-        private final List<String> frames;
+        private final int index, interval;
+        private final FrameList frames;
 
         private int lastTick;
 
-        public Line(int interval, List<String> frames)
+        public Line(int index, int interval, List<String> frames)
         {
+            this.index = index;
             this.interval = interval;
-            this.frames = frames;
+            this.frames = new FrameList(frames);
+        }
+
+        public int index()
+        {
+            return index;
         }
 
         public int interval()
@@ -22,7 +30,7 @@ public record SidebarSettings(int priority, List<Line> lines)
             return interval;
         }
 
-        public List<String> frames()
+        public FrameList frames()
         {
             return frames;
         }
