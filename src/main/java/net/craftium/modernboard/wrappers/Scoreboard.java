@@ -22,6 +22,7 @@ public class Scoreboard
         this.player = new WeakReference<>(player);
 
         api.addPlayer(player);
+        updateNow(); // update forcefully the first time
     }
 
     public void close()
@@ -33,42 +34,46 @@ public class Scoreboard
     {
         List<SidebarSettings.Line> lines = settings.lines();
 
-        updateTitle(lines.get(0));
-        updateLines(lines);
+        updateTitle(true, lines.get(0));
+        updateLines(true, lines);
     }
 
-    private void updateTitle(SidebarSettings.Line title)
+    public void updateNow()
     {
-        int lastTick = title.lastTick();
+        List<SidebarSettings.Line> lines = settings.lines();
 
-        if(lastTick >= title.interval())
-        {
-            // update frame
-            String frame = title.frames().next();
-            title(updateFrame(frame));
-            title.setLastTick(0);
-        }
-        else
-            title.setLastTick(++lastTick);
+        updateTitle(false, lines.get(0));
+        updateLines(false, lines);
     }
 
-    private void updateLines(List<SidebarSettings.Line> lines)
+    private void updateTitle(boolean checkInterval, SidebarSettings.Line title)
+    {
+        update0(checkInterval, -1, title);
+    }
+
+    private void updateLines(boolean checkInterval, List<SidebarSettings.Line> lines)
     {
         for(int i = 1; i < lines.size(); i++)
         {
             SidebarSettings.Line line = lines.get(i);
-            int lastTick = line.lastTick();
-
-            if(lastTick >= line.interval())
-            {
-                // update frame
-                String frame = line.frames().next();
-                line(line.index(), updateFrame(frame));
-                line.setLastTick(0);
-            }
-            else
-                line.setLastTick(++lastTick);
+            update0(checkInterval, line.index(), line);
         }
+    }
+
+    private void update0(boolean checkInterval, int index, SidebarSettings.Line line)
+    {
+        int lastTick = line.lastTick();
+
+        if(!checkInterval || lastTick >= line.interval())
+        {
+            // update frame
+            String frame = line.frames().next();
+            if(index < 0) title(updateFrame(frame));
+            else line(index, updateFrame(frame));
+            line.setLastTick(0);
+        }
+        else
+            line.setLastTick(++lastTick);
     }
 
     private Component updateFrame(String frame)
