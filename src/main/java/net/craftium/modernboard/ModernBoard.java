@@ -22,6 +22,9 @@ public class ModernBoard extends JavaPlugin
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         new ScoreboardUpdateTask(this).runTaskTimerAsynchronously(this, 0, 1L);
+
+        // if for some reason there are players online when the plugin is enabled, add them to the scoreboard
+        getServer().getOnlinePlayers().forEach(scoreboardManager::addPlayer);
     }
 
     @Override
