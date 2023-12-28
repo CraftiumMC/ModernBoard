@@ -3,3 +3,5 @@ main: net.craftium.modernboard.ModernBoard
 version: ${project.version}
 api-version: 1.20
 author: Artuto
+depend:
+  - PlaceholderAPI

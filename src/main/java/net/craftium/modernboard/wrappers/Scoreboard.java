@@ -2,6 +2,7 @@ package net.craftium.modernboard.wrappers;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.boards.SidebarSettings;
+import net.craftium.modernboard.utils.TextUtil;
 import net.kyori.adventure.text.Component;
 import net.megavex.scoreboardlibrary.api.sidebar.Sidebar;
 import org.bukkit.entity.Player;
@@ -68,8 +69,8 @@ public class Scoreboard
         {
             // update frame
             String frame = line.frames().next();
-            if(index < 0) title(updateFrame(frame));
-            else line(index, updateFrame(frame));
+            if(index < 0) api.title(updateFrame(frame));
+            else api.line(index, updateFrame(frame));
             line.setLastTick(0);
         }
         else
@@ -78,23 +79,14 @@ public class Scoreboard
 
     private Component updateFrame(String frame)
     {
-        return Component.text(frame); // todo placeholders & minimsg
+        // replace placeholders from PlaceholderAPI
+        frame = TextUtil.placeholders(getPlayer(), frame);
+        // convert to MiniMessage
+        return TextUtil.miniMessage(frame);
     }
 
     public Player getPlayer()
     {
         return player.get();
-    }
-
-    public Scoreboard line(int line, Component text)
-    {
-        api.line(line, text);
-        return this;
-    }
-
-    public Scoreboard title(Component text)
-    {
-        api.title(text);
-        return this;
     }
 }
