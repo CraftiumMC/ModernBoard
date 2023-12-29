@@ -4,7 +4,6 @@ import net.craftium.modernboard.config.Settings;
 import net.craftium.modernboard.listeners.PlayerListener;
 import net.craftium.modernboard.managers.ScoreboardManager;
 import net.craftium.modernboard.tasks.ScoreboardUpdateTask;
-import net.craftium.modernboard.wrappers.Scoreboard;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ModernBoard extends JavaPlugin
@@ -31,10 +30,7 @@ public class ModernBoard extends JavaPlugin
     public void onDisable()
     {
         if(scoreboardManager != null)
-        {
-            scoreboardManager.getBoards().values().forEach(Scoreboard::close);
-            scoreboardManager.getBoards().clear();
-        }
+            scoreboardManager.close();
     }
 
     public Settings getSettings()

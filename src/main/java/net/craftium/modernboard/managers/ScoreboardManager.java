@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -28,15 +29,26 @@ public class ScoreboardManager
 
     public Map<Player, Scoreboard> getBoards()
     {
-        return boards;
+        return Collections.unmodifiableMap(boards);
     }
 
     @Nullable
     public Scoreboard addPlayer(Player player)
     {
+        if(api.closed())
+        {
+            plugin.getSLF4JLogger().warn("Tried to add scoreboard to closed manager!");
+            return null;
+        }
+
         SidebarSettings sidebar = determineSidebar(player);
         if(sidebar == null)
             return null;
+
+        // If we already have one close it
+        Scoreboard present = boards.get(player);
+        if(present != null)
+            present.close();
 
         Scoreboard scoreboard = new Scoreboard(plugin, player, sidebar);
         boards.put(player, scoreboard);
@@ -45,11 +57,24 @@ public class ScoreboardManager
 
     public void removePlayer(Player player)
     {
+        if(api.closed())
+            return;
+
         Scoreboard scoreboard = boards.remove(player);
         if(scoreboard == null)
             return;
 
         scoreboard.close();
+    }
+
+    public void close()
+    {
+        if(api == null || api.closed())
+            return;
+
+        boards.values().forEach(Scoreboard::close);
+        boards.clear();
+        api.close();
     }
 
     public ScoreboardLibrary getLibrary()
