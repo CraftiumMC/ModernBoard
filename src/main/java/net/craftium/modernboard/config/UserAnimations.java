@@ -2,37 +2,34 @@ package net.craftium.modernboard.config;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.animations.Animation;
+import net.craftium.modernboard.animations.impl.ReplacingAnimation;
 import net.craftium.modernboard.config.loader.Configuration;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class AnimationRegistry extends Configuration
+public class UserAnimations extends Configuration
 {
-    public AnimationRegistry(ModernBoard plugin)
+    public UserAnimations(ModernBoard plugin)
     {
         super(plugin, "animations.yml", "animations.yml");
-        readConfig(AnimationRegistry.class, this);
+        readConfig(UserAnimations.class, this);
     }
 
-    public Map<String, Animation> animations;
-    private void _animations() throws SerializationException
+    private void _registerAnimations() throws SerializationException
     {
-        Map<String, Animation> ret = new HashMap<>();
         var map = root().childrenMap();
 
         for(Map.Entry<Object, ? extends ConfigurationNode> entry : map.entrySet())
         {
-            String identifier = String.valueOf(entry.getKey());
             ConfigurationNode node = entry.getValue();
-            Animation animation = node.get(Animation.class);
-            ret.put(identifier, animation);
-        }
+            Animation animation = node.get(ReplacingAnimation.class);
+            if(animation == null)
+                continue;
 
-        this.animations = Collections.unmodifiableMap(ret);
+            plugin.getAnimationRegistry().registerAnimation(animation.getIdentifier(), animation);
+        }
     }
 }

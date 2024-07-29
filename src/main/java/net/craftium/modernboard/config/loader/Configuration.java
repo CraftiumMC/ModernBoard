@@ -1,7 +1,7 @@
 package net.craftium.modernboard.config.loader;
 
 import net.craftium.modernboard.ModernBoard;
-import net.craftium.modernboard.animations.Animation;
+import net.craftium.modernboard.animations.impl.ReplacingAnimation;
 import net.craftium.modernboard.boards.SidebarSettings;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -222,7 +222,7 @@ public abstract class Configuration
     }
 
     protected static final TypeSerializerCollection SERIALIZERS = TypeSerializerCollection.defaults().childBuilder()
-            .register(Animation.class, new AnimationSerializer())
+            .register(ReplacingAnimation.class, new AnimationSerializer())
             .register(SidebarSettings.class, new SidebarSettingsSerializer())
             .build();
 }
