@@ -1,6 +1,7 @@
 package net.craftium.modernboard.config.loader;
 
 import net.craftium.modernboard.boards.SidebarSettings;
+import net.craftium.modernboard.utils.FrameList;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.serialize.TypeSerializer;
@@ -21,8 +22,8 @@ public class SidebarSettingsSerializer implements TypeSerializer<SidebarSettings
         {
             lines.add(new SidebarSettings.Line(
                     index.getAndIncrement(),
-                    lineConfig.node("interval").getInt(10),
-                    lineConfig.node("frames").getList(String.class)
+                    lineConfig.node("interval").getInt(100),
+                    new FrameList(lineConfig.node("frames").getList(String.class))
             ));
         }
 

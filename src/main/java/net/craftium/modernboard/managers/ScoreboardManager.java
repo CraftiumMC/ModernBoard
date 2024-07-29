@@ -2,12 +2,11 @@ package net.craftium.modernboard.managers;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.boards.SidebarSettings;
-import net.craftium.modernboard.wrappers.Scoreboard;
+import net.craftium.modernboard.entities.Scoreboard;
 import net.megavex.scoreboardlibrary.api.ScoreboardLibrary;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -46,11 +45,11 @@ public class ScoreboardManager
             return null;
 
         // If we already have one close it
-        Scoreboard present = boards.get(player);
-        if(present != null)
-            present.close();
+        Scoreboard scoreboard = boards.get(player);
+        if(scoreboard != null)
+            scoreboard.close();
 
-        Scoreboard scoreboard = new Scoreboard(plugin, player, sidebar);
+        scoreboard = new Scoreboard(plugin, player, sidebar);
         boards.put(player, scoreboard);
         return scoreboard;
     }
@@ -100,11 +99,12 @@ public class ScoreboardManager
     @Nullable
     private SidebarSettings determineSidebar(Player player)
     {
-        List<SidebarSettings> sidebars = new ArrayList<>(plugin.getSettings().sidebars);
-        sidebars.sort(Comparator.comparingInt(SidebarSettings::priority));
+        List<SidebarSettings> sidebars = plugin.getSettings().sidebars;
+
+        // TODO check permissions and player settings
 
         return sidebars.stream()
-                .findFirst()
+                .min(Comparator.comparingInt(SidebarSettings::priority))
                 .orElse(null);
     }
 }

@@ -12,10 +12,10 @@
     <url>https://craftium.net</url>
 
     <properties>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <scoreboardlib.version>2.0.1</scoreboardlib.version>
+        <scoreboardlib.version>2.1.11</scoreboardlib.version>
     </properties>
 
     <repositories>
@@ -23,11 +23,6 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
-
-          <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io/</url>
-          </repository>
 
         <repository>
             <id>placeholderapi</id>
@@ -39,26 +34,26 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <version>1.21-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- ScoreboardLibrary -->
         <dependency>
-            <groupId>com.github.MegavexNetwork.scoreboard-library</groupId>
+            <groupId>net.megavex</groupId>
             <artifactId>scoreboard-library-api</artifactId>
             <version>${scoreboardlib.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.github.MegavexNetwork.scoreboard-library</groupId>
+            <groupId>net.megavex</groupId>
             <artifactId>scoreboard-library-implementation</artifactId>
             <version>${scoreboardlib.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.MegavexNetwork.scoreboard-library</groupId>
+            <groupId>net.megavex</groupId>
             <artifactId>scoreboard-library-modern</artifactId>
             <version>${scoreboardlib.version}</version>
             <scope>runtime</scope>

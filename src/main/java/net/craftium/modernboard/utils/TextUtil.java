@@ -3,16 +3,28 @@ package net.craftium.modernboard.utils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
-
-import static net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand;
 
 public class TextUtil
 {
+//    public static FlattenedComponent flatten(Component component)
+//    {
+//        FlattenedComponent flattened = new FlattenedComponent();
+//        FLATTENER.flatten(component, flattened);
+//        return flattened;
+//    }
+
     public static String placeholders(Player player, String text)
     {
         return PlaceholderAPI.setPlaceholders(player, text);
+    }
+
+    public static String plain(Component text)
+    {
+        return PLAIN_SERIALIZER.serialize(text);
     }
 
     public static Component miniMessage(String text)
@@ -20,6 +32,17 @@ public class TextUtil
         return MINI_MESSAGE.deserialize(text);
     }
 
-    private static final LegacyComponentSerializer LEGACY_SERIALIZER = legacyAmpersand();
-    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    public static Component placeholderAndParse(Player player, String text)
+    {
+        return miniMessage(placeholders(player, text));
+    }
+
+//    private static final ComponentFlattener FLATTENER = PaperComponents.flattener();
+//    private static final LegacyComponentSerializer LEGACY_SERIALIZER = legacyAmpersand();
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.builder()
+            .tags(TagResolver.builder()
+                    .resolver(StandardTags.defaults())
+                    .build())
+            .build();
+    private static final PlainTextComponentSerializer PLAIN_SERIALIZER = PlainTextComponentSerializer.plainText();
 }

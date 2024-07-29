@@ -1,22 +1,20 @@
 package net.craftium.modernboard.tasks;
 
-import net.craftium.modernboard.ModernBoard;
-import net.craftium.modernboard.wrappers.Scoreboard;
+import net.craftium.modernboard.entities.Scoreboard;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ScoreboardUpdateTask extends BukkitRunnable
 {
-    private final ModernBoard plugin;
+    private final Scoreboard scoreboard;
 
-    public ScoreboardUpdateTask(ModernBoard plugin)
+    public ScoreboardUpdateTask(Scoreboard scoreboard)
     {
-        this.plugin = plugin;
+        this.scoreboard = scoreboard;
     }
 
     @Override
     public void run()
     {
-        for(Scoreboard sb : plugin.getScoreboardManager().getBoards().values())
-            sb.update();
+        scoreboard.update();
     }
 }

@@ -2,8 +2,10 @@ priority: 1
 
 lines:
   - frames:
-      - "TECH TEST"
-    interval: 10
+      - "<powered-by>"
+    interval: 2
+  - frames:
+      - "<dark_gray><st>--------------------------</st></dark_gray>"
   - frames:
       - "L"
       - "Li"
@@ -16,4 +18,4 @@ lines:
   - frames:
       - "Line 3"
   - frames:
-      - "Line 4"
+      - "<dark_gray><st>--------------------------</st></dark_gray>"
