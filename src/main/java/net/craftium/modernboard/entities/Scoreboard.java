@@ -33,12 +33,12 @@ public class Scoreboard
         this.player = new WeakReference<>(player);
 
         SidebarSettings.Line title = settings.lines().getFirst();
-        components.add(createComponentUpdater(plugin, new SidebarTitleComponent(api), title));
+        components.add(createComponentUpdater(plugin, player, new SidebarTitleComponent(api), title));
 
         for(int i = 1; i < settings.lines().size(); i++)
         {
             SidebarSettings.Line line = settings.lines().get(i);
-            components.add(createComponentUpdater(plugin, new SidebarLineComponent(line.index(), api), line));
+            components.add(createComponentUpdater(plugin, player, new SidebarLineComponent(line.index(), api), line));
         }
 
         api.addPlayer(player);
@@ -75,11 +75,11 @@ public class Scoreboard
         this.lastTick += tickRate;
     }
 
-    private SidebarComponentUpdater createComponentUpdater(ModernBoard plugin, SidebarComponent component, SidebarSettings.Line line)
+    private SidebarComponentUpdater createComponentUpdater(ModernBoard plugin, Player player, SidebarComponent component, SidebarSettings.Line line)
     {
         if(line.frames().size() < 2 && !plugin.getAnimationParser().hasAnimation(line.frames()))
             return new StaticComponentUpdater(component, line.frames().getFirst());
-        return new AnimatedComponentUpdater(plugin, component, line);
+        return new AnimatedComponentUpdater(plugin, player, component, line);
     }
 
     private int calculateTickRate()

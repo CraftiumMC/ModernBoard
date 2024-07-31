@@ -40,7 +40,7 @@ public class PlayerListener implements Listener
         else if(ev.getBlockPlaced().getType() == Material.EMERALD_BLOCK)
         {
             plugin.getScoreboardManager().removePlayer(ev.getPlayer());
-            plugin.getSettings().reload();
+            plugin.reloadPlugin();
             plugin.getScoreboardManager().addPlayer(ev.getPlayer());
         }
     }

@@ -19,12 +19,12 @@ public class AnimatedComponentUpdater implements SidebarComponentUpdater
 
     private int currentFrame = 0;
 
-    public AnimatedComponentUpdater(ModernBoard plugin, SidebarComponent component, SidebarSettings.Line settings)
+    public AnimatedComponentUpdater(ModernBoard plugin, Player player, SidebarComponent component, SidebarSettings.Line settings)
     {
         this.interval = settings.interval();
         this.plugin = plugin;
         this.component = component;
-        this.frames = createFrameList(settings.frames());
+        this.frames = createFrameList(settings.frames(), player);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AnimatedComponentUpdater implements SidebarComponentUpdater
         component.setText(display);
     }
 
-    private FrameList createFrameList(FrameList unparsedFrames)
+    private FrameList createFrameList(FrameList unparsedFrames, Player player)
     {
         AnimationParser animationParser = plugin.getAnimationParser();
         FrameList frameList = new FrameList();
@@ -64,7 +64,7 @@ public class AnimatedComponentUpdater implements SidebarComponentUpdater
         for(String frame : unparsedFrames)
         {
             if(animationParser.hasAnimation(frame))
-                frameList.addAll(animationParser.parseAnimation(frame));
+                frameList.addAll(animationParser.parseAnimation(player, frame));
             else
                 frameList.add(frame);
         }
