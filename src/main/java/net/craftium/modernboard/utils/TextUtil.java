@@ -10,12 +10,10 @@ import org.bukkit.entity.Player;
 
 public class TextUtil
 {
-//    public static FlattenedComponent flatten(Component component)
-//    {
-//        FlattenedComponent flattened = new FlattenedComponent();
-//        FLATTENER.flatten(component, flattened);
-//        return flattened;
-//    }
+    public static String stripColors(String text)
+    {
+        return COLOR_STRIPPER.stripTags(text);
+    }
 
     public static String placeholders(Player player, String text)
     {
@@ -37,11 +35,14 @@ public class TextUtil
         return miniMessage(placeholders(player, text));
     }
 
-//    private static final ComponentFlattener FLATTENER = PaperComponents.flattener();
-//    private static final LegacyComponentSerializer LEGACY_SERIALIZER = legacyAmpersand();
     private static final MiniMessage MINI_MESSAGE = MiniMessage.builder()
             .tags(TagResolver.builder()
                     .resolver(StandardTags.defaults())
+                    .build())
+            .build();
+    private static final MiniMessage COLOR_STRIPPER = MiniMessage.builder()
+            .tags(TagResolver.builder()
+                    .resolvers(StandardTags.color(), StandardTags.gradient(), StandardTags.rainbow())
                     .build())
             .build();
     private static final PlainTextComponentSerializer PLAIN_SERIALIZER = PlainTextComponentSerializer.plainText();

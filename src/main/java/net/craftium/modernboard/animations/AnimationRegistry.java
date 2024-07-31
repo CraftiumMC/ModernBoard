@@ -1,5 +1,8 @@
 package net.craftium.modernboard.animations;
 
+import net.craftium.modernboard.animations.impl.builtin.FlashingAnimation;
+import net.craftium.modernboard.animations.impl.builtin.PauseAnimation;
+import net.craftium.modernboard.animations.impl.builtin.RainbowAnimation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -14,6 +17,11 @@ public class AnimationRegistry
     public AnimationRegistry()
     {
         this.animations = new HashMap<>();
+
+        // Register built-in animations
+        registerAnimation("flash", new FlashingAnimation());
+        registerAnimation("pause", new PauseAnimation());
+        registerAnimation("rainbow", new RainbowAnimation());
     }
 
     public void registerAnimation(String identifier, Animation animation)
