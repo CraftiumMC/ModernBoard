@@ -10,6 +10,17 @@ import org.bukkit.entity.Player;
 
 public class TextUtil
 {
+    public static boolean containsPlaceholders(FrameList frames)
+    {
+        for(String frame : frames)
+        {
+            if(PlaceholderAPI.containsPlaceholders(frame))
+                return true;
+        }
+
+        return false;
+    }
+
     public static String stripColors(String text)
     {
         return COLOR_STRIPPER.stripTags(text);

@@ -16,6 +16,8 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+import static net.craftium.modernboard.utils.TextUtil.containsPlaceholders;
+
 public class Scoreboard
 {
     private final BukkitTask task;
@@ -77,7 +79,8 @@ public class Scoreboard
 
     private SidebarComponentUpdater createComponentUpdater(ModernBoard plugin, Player player, SidebarComponent component, SidebarSettings.Line line)
     {
-        if(line.frames().size() < 2 && !plugin.getAnimationParser().hasAnimation(line.frames()))
+        if(line.frames().size() < 2 && !containsPlaceholders(line.frames()) &&
+                !plugin.getAnimationParser().hasAnimation(line.frames()))
             return new StaticComponentUpdater(component, line.frames().getFirst());
         return new AnimatedComponentUpdater(plugin, player, component, line);
     }
