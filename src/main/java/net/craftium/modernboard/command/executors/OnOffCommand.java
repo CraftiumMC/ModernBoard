@@ -22,7 +22,7 @@ public class OnOffCommand
     @CommandPermission("modernboard.command.on")
     public void turnOnSelf(Player player)
     {
-        plugin.getScoreboardManager().addPlayer(player);
+        plugin.getSidebarManager().addPlayer(player);
         player.sendMessage(plugin.getMessages().get("scoreboard-toggle-on"));
     }
 
@@ -31,7 +31,7 @@ public class OnOffCommand
     public void turnOnOther(CommandSender sender, @Argument("player") Player player,
                             @Flag(value = "silent", aliases = "s") boolean silent)
     {
-        plugin.getScoreboardManager().addPlayer(player);
+        plugin.getSidebarManager().addPlayer(player);
         sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-on-other",
                 Placeholder.component("target", player.name())));
         if(!silent)
@@ -42,7 +42,7 @@ public class OnOffCommand
     @CommandPermission("modernboard.command.off")
     public void turnOffSelf(Player player)
     {
-        plugin.getScoreboardManager().removePlayer(player);
+        plugin.getSidebarManager().removePlayer(player);
         player.sendMessage(plugin.getMessages().get("scoreboard-toggle-off"));
     }
 
@@ -51,7 +51,7 @@ public class OnOffCommand
     public void turnOffOther(CommandSender sender, @Argument("player") Player player,
                             @Flag(value = "silent", aliases = "s") boolean silent)
     {
-        plugin.getScoreboardManager().removePlayer(player);
+        plugin.getSidebarManager().removePlayer(player);
         sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-off-other",
                 Placeholder.component("target", player.name())));
         if(!silent)

@@ -24,16 +24,16 @@ public class ToggleCommand
     @CommandPermission("modernboard.command.toggle")
     public void toggleSelf(Player player)
     {
-        boolean active = plugin.getScoreboardManager().hasActiveBoard(player);
+        boolean active = plugin.getSidebarManager().hasActiveBoard(player);
 
         if(active)
         {
-            plugin.getScoreboardManager().removePlayer(player);
+            plugin.getSidebarManager().removePlayer(player);
             player.sendMessage(plugin.getMessages().get("scoreboard-toggle-off"));
         }
         else
         {
-            plugin.getScoreboardManager().addPlayer(player);
+            plugin.getSidebarManager().addPlayer(player);
             player.sendMessage(plugin.getMessages().get("scoreboard-toggle-on"));
         }
     }
@@ -44,11 +44,11 @@ public class ToggleCommand
     public void toggleOther(CommandSender sender, @Argument("player") Player player,
                             @Flag(value = "silent", aliases = "s") boolean silent)
     {
-        boolean active = plugin.getScoreboardManager().hasActiveBoard(player);
+        boolean active = plugin.getSidebarManager().hasActiveBoard(player);
 
         if(active)
         {
-            plugin.getScoreboardManager().removePlayer(player);
+            plugin.getSidebarManager().removePlayer(player);
             sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-off-other",
                     Placeholder.component("target", player.name())));
             if(!silent)
@@ -56,7 +56,7 @@ public class ToggleCommand
         }
         else
         {
-            plugin.getScoreboardManager().addPlayer(player);
+            plugin.getSidebarManager().addPlayer(player);
             sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-on-other",
                     Placeholder.component("target", player.name())));
             if(!silent)

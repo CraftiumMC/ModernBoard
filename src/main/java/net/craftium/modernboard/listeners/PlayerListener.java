@@ -18,12 +18,12 @@ public class PlayerListener implements Listener
     @EventHandler(ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        plugin.getScoreboardManager().addPlayer(event.getPlayer());
+        plugin.getSidebarManager().addPlayer(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event)
     {
-        plugin.getScoreboardManager().removePlayer(event.getPlayer());
+        plugin.getSidebarManager().removePlayer(event.getPlayer());
     }
 }

@@ -2,7 +2,7 @@ package net.craftium.modernboard.managers;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.boards.SidebarSettings;
-import net.craftium.modernboard.entities.Scoreboard;
+import net.craftium.modernboard.entities.Sidebar;
 import net.megavex.scoreboardlibrary.api.ScoreboardLibrary;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ScoreboardManager
+public class SidebarManager
 {
-    private final Map<Player, Scoreboard> boards;
+    private final Map<Player, Sidebar> boards;
     private final ModernBoard plugin;
     private final ScoreboardLibrary api;
 
-    public ScoreboardManager(ModernBoard plugin)
+    public SidebarManager(ModernBoard plugin)
     {
         this.boards = new WeakHashMap<>();
         this.plugin = plugin;
@@ -31,13 +31,13 @@ public class ScoreboardManager
         return boards.containsKey(player);
     }
 
-    public Map<Player, Scoreboard> getBoards()
+    public Map<Player, Sidebar> getBoards()
     {
         return Collections.unmodifiableMap(boards);
     }
 
     @Nullable
-    public Scoreboard addPlayer(Player player)
+    public Sidebar addPlayer(Player player)
     {
         if(api.closed())
         {
@@ -45,18 +45,18 @@ public class ScoreboardManager
             return null;
         }
 
-        SidebarSettings sidebar = determineSidebar(player);
-        if(sidebar == null)
+        SidebarSettings settings = determineSidebar(player);
+        if(settings == null)
             return null;
 
         // If we already have one close it
-        Scoreboard scoreboard = boards.get(player);
-        if(scoreboard != null)
-            scoreboard.close();
+        Sidebar sidebar = boards.get(player);
+        if(sidebar != null)
+            sidebar.close();
 
-        scoreboard = new Scoreboard(plugin, player, sidebar);
-        boards.put(player, scoreboard);
-        return scoreboard;
+        sidebar = new Sidebar(plugin, player, settings);
+        boards.put(player, sidebar);
+        return sidebar;
     }
 
     public void removePlayer(Player player)
@@ -64,11 +64,11 @@ public class ScoreboardManager
         if(api.closed())
             return;
 
-        Scoreboard scoreboard = boards.remove(player);
-        if(scoreboard == null)
+        Sidebar sidebar = boards.remove(player);
+        if(sidebar == null)
             return;
 
-        scoreboard.close();
+        sidebar.close();
     }
 
     public void close()
@@ -76,7 +76,7 @@ public class ScoreboardManager
         if(api == null || api.closed())
             return;
 
-        boards.values().forEach(Scoreboard::close);
+        boards.values().forEach(Sidebar::close);
         boards.clear();
         api.close();
     }

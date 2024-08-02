@@ -6,8 +6,7 @@ import net.craftium.modernboard.entities.impl.AnimatedComponentUpdater;
 import net.craftium.modernboard.entities.impl.SidebarLineComponent;
 import net.craftium.modernboard.entities.impl.SidebarTitleComponent;
 import net.craftium.modernboard.entities.impl.StaticComponentUpdater;
-import net.craftium.modernboard.tasks.ScoreboardUpdateTask;
-import net.megavex.scoreboardlibrary.api.sidebar.Sidebar;
+import net.craftium.modernboard.tasks.SidebarUpdateTask;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -17,21 +16,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static net.craftium.modernboard.utils.TextUtil.containsPlaceholders;
+import static net.megavex.scoreboardlibrary.api.sidebar.Sidebar.MAX_LINES;
 
-public class Scoreboard
+public class Sidebar
 {
     private final BukkitTask task;
     private final int tickRate;
     private final List<SidebarComponentUpdater> components;
-    private final Sidebar api;
+    private final net.megavex.scoreboardlibrary.api.sidebar.Sidebar api;
     private final WeakReference<Player> player;
 
     private int lastTick = 0;
 
-    public Scoreboard(ModernBoard plugin, Player player, SidebarSettings settings)
+    public Sidebar(ModernBoard plugin, Player player, SidebarSettings settings)
     {
         this.components = new LinkedList<>();
-        this.api = plugin.getScoreboardManager().getLibrary().createSidebar(Sidebar.MAX_LINES, player.locale());
+        this.api = plugin.getSidebarManager().getLibrary().createSidebar(MAX_LINES, player.locale());
         this.player = new WeakReference<>(player);
 
         SidebarSettings.Line title = settings.lines().getFirst();
@@ -47,7 +47,7 @@ public class Scoreboard
         updateNow(); // update forcefully the first time
 
         this.tickRate = calculateTickRate();
-        this.task = new ScoreboardUpdateTask(this).runTaskTimerAsynchronously(plugin, 0, tickRate);
+        this.task = new SidebarUpdateTask(this).runTaskTimerAsynchronously(plugin, 0, tickRate);
     }
 
     public void close()

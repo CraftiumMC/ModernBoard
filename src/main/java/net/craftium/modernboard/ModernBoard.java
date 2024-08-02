@@ -10,7 +10,7 @@ import net.craftium.modernboard.config.Messages;
 import net.craftium.modernboard.config.Settings;
 import net.craftium.modernboard.config.UserAnimations;
 import net.craftium.modernboard.listeners.PlayerListener;
-import net.craftium.modernboard.managers.ScoreboardManager;
+import net.craftium.modernboard.managers.SidebarManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ModernBoard extends JavaPlugin
@@ -23,7 +23,7 @@ public class ModernBoard extends JavaPlugin
     private UserAnimations userAnimations;
 
     private CommandManager commandManager;
-    private ScoreboardManager scoreboardManager;
+    private SidebarManager sidebarManager;
 
     @Override
     public void onEnable()
@@ -36,20 +36,20 @@ public class ModernBoard extends JavaPlugin
         this.userAnimations = new UserAnimations(this);
 
         this.commandManager = new CommandManager(this);
-        this.scoreboardManager = new ScoreboardManager(this);
+        this.sidebarManager = new SidebarManager(this);
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         registerCommands();
 
-        // if for some reason there are players online when the plugin is enabled, add them to the scoreboard
-        getServer().getOnlinePlayers().forEach(scoreboardManager::addPlayer);
+        // if for some reason there are players online when the plugin is enabled, assign them a sidebar
+        getServer().getOnlinePlayers().forEach(sidebarManager::addPlayer);
     }
 
     @Override
     public void onDisable()
     {
-        if(scoreboardManager != null)
-            scoreboardManager.close();
+        if(sidebarManager != null)
+            sidebarManager.close();
     }
 
     public void reloadPlugin()
@@ -88,8 +88,8 @@ public class ModernBoard extends JavaPlugin
         return animationRegistry;
     }
 
-    public ScoreboardManager getScoreboardManager()
+    public SidebarManager getSidebarManager()
     {
-        return scoreboardManager;
+        return sidebarManager;
     }
 }
