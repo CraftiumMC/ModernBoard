@@ -1,11 +1,11 @@
 package net.craftium.modernboard.command.executors;
 
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import cloud.commandframework.annotations.CommandMethod;
+import cloud.commandframework.annotations.CommandPermission;
 import net.craftium.modernboard.ModernBoard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.incendo.cloud.annotations.Command;
-import org.incendo.cloud.annotations.Permission;
+import org.bukkit.command.CommandSender;
 
 public class ReloadCommand
 {
@@ -16,19 +16,19 @@ public class ReloadCommand
         this.plugin = plugin;
     }
 
-    @Command("modernboard|mb reload")
-    @Permission("modernboard.command.reload")
-    public void reload(CommandSourceStack source)
+    @CommandMethod("modernboard|mb reload")
+    @CommandPermission("modernboard.command.reload")
+    public void reload(CommandSender sender)
     {
         try
         {
             plugin.reloadPlugin();
-            source.getSender().sendMessage(Component.text("ModernBoard reloaded successfully!",
+            sender.sendMessage(Component.text("ModernBoard reloaded successfully!",
                     NamedTextColor.GREEN));
         }
         catch(Exception e)
         {
-            source.getSender().sendMessage(Component.text("Failed to reload config files. " +
+            sender.sendMessage(Component.text("Failed to reload config files. " +
                     "Check the console for more details.", NamedTextColor.RED));
             plugin.getSLF4JLogger().error("Failed to reload config files:", e);
         }

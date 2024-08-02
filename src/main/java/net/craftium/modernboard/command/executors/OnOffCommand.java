@@ -1,13 +1,13 @@
 package net.craftium.modernboard.command.executors;
 
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import cloud.commandframework.annotations.Argument;
+import cloud.commandframework.annotations.CommandMethod;
+import cloud.commandframework.annotations.CommandPermission;
+import cloud.commandframework.annotations.Flag;
 import net.craftium.modernboard.ModernBoard;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.incendo.cloud.annotations.Argument;
-import org.incendo.cloud.annotations.Command;
-import org.incendo.cloud.annotations.Flag;
-import org.incendo.cloud.annotations.Permission;
 
 public class OnOffCommand
 {
@@ -18,41 +18,41 @@ public class OnOffCommand
         this.plugin = plugin;
     }
 
-    @Command("modernboard|mb on")
-    @Permission("modernboard.command.on")
+    @CommandMethod("modernboard|mb on")
+    @CommandPermission("modernboard.command.on")
     public void turnOnSelf(Player player)
     {
         plugin.getScoreboardManager().addPlayer(player);
         player.sendMessage(plugin.getMessages().get("scoreboard-toggle-on"));
     }
 
-    @Command("modernboard|mb on <player>")
-    @Permission("modernboard.command.on.other")
-    public void turnOnOther(CommandSourceStack source, @Argument Player player,
+    @CommandMethod("modernboard|mb on <player>")
+    @CommandPermission("modernboard.command.on.other")
+    public void turnOnOther(CommandSender sender, @Argument("player") Player player,
                             @Flag(value = "silent", aliases = "s") boolean silent)
     {
         plugin.getScoreboardManager().addPlayer(player);
-        source.getSender().sendMessage(plugin.getMessages().get("scoreboard-toggle-on-other",
+        sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-on-other",
                 Placeholder.component("target", player.name())));
         if(!silent)
             player.sendMessage(plugin.getMessages().get("scoreboard-toggle-on"));
     }
 
-    @Command("modernboard|mb off")
-    @Permission("modernboard.command.off")
+    @CommandMethod("modernboard|mb off")
+    @CommandPermission("modernboard.command.off")
     public void turnOffSelf(Player player)
     {
         plugin.getScoreboardManager().removePlayer(player);
         player.sendMessage(plugin.getMessages().get("scoreboard-toggle-off"));
     }
 
-    @Command("modernboard|mb off <player>")
-    @Permission("modernboard.command.off.other")
-    public void turnOffOther(CommandSourceStack source, @Argument Player player,
+    @CommandMethod("modernboard|mb off <player>")
+    @CommandPermission("modernboard.command.off.other")
+    public void turnOffOther(CommandSender sender, @Argument("player") Player player,
                             @Flag(value = "silent", aliases = "s") boolean silent)
     {
         plugin.getScoreboardManager().removePlayer(player);
-        source.getSender().sendMessage(plugin.getMessages().get("scoreboard-toggle-off-other",
+        sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-off-other",
                 Placeholder.component("target", player.name())));
         if(!silent)
             player.sendMessage(plugin.getMessages().get("scoreboard-toggle-off"));

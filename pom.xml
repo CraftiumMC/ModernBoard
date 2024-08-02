@@ -15,7 +15,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <cloud.version>2.0.0-SNAPSHOT</cloud.version>
+        <cloud.version>1.8.4</cloud.version>
         <scoreboardlib.version>2.1.11</scoreboardlib.version>
     </properties>
 
@@ -78,15 +78,15 @@
 
         <!-- Cloud -->
         <dependency>
-            <groupId>org.incendo</groupId>
+            <groupId>cloud.commandframework</groupId>
             <artifactId>cloud-paper</artifactId>
             <version>${cloud.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.incendo</groupId>
+            <groupId>cloud.commandframework</groupId>
             <artifactId>cloud-annotations</artifactId>
-            <version>2.0.0-rc.2</version>
+            <version>${cloud.version}</version>
         </dependency>
     </dependencies>
 

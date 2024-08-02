@@ -1,26 +1,38 @@
 package net.craftium.modernboard.command;
 
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import cloud.commandframework.annotations.AnnotationParser;
+import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.meta.SimpleCommandMeta;
+import cloud.commandframework.paper.PaperCommandManager;
 import net.craftium.modernboard.ModernBoard;
-import org.incendo.cloud.SenderMapper;
-import org.incendo.cloud.annotations.AnnotationParser;
-import org.incendo.cloud.execution.ExecutionCoordinator;
-import org.incendo.cloud.meta.SimpleCommandMeta;
-import org.incendo.cloud.paper.PaperCommandManager;
+import org.bukkit.command.CommandSender;
+
+import java.util.function.Function;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CommandManager
 {
-    private final AnnotationParser<CommandSourceStack> parser;
-    private final PaperCommandManager<CommandSourceStack> manager;
+    private final AnnotationParser<CommandSender> parser;
+    private final PaperCommandManager<CommandSender> manager;
 
     public CommandManager(ModernBoard plugin)
     {
-        this.manager = PaperCommandManager.builder(SenderMapper.identity())
-                .executionCoordinator(ExecutionCoordinator.simpleCoordinator())
-                .buildOnEnable(plugin);
-        this.parser = new AnnotationParser<>(manager, CommandSourceStack.class,
+        try
+        {
+            this.manager = new PaperCommandManager<>(
+                plugin,
+                CommandExecutionCoordinator.simpleCoordinator(),
+                Function.identity(),
+                Function.identity());
+            this.parser = new AnnotationParser<>(manager, CommandSender.class,
                 params -> SimpleCommandMeta.empty());
+        }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Failed to initialize command manager", e);
+        }
+
+        manager.registerAsynchronousCompletions();
     }
 
     public void registerCommands(Object... commands)
@@ -29,7 +41,7 @@ public class CommandManager
             parser.parse(command);
     }
 
-    public PaperCommandManager<CommandSourceStack> getAPI()
+    public PaperCommandManager<?> getAPI()
     {
         return manager;
     }

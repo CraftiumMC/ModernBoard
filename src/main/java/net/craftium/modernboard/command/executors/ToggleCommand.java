@@ -1,14 +1,14 @@
 package net.craftium.modernboard.command.executors;
 
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import cloud.commandframework.annotations.Argument;
+import cloud.commandframework.annotations.CommandMethod;
+import cloud.commandframework.annotations.CommandPermission;
+import cloud.commandframework.annotations.Flag;
+import cloud.commandframework.annotations.ProxiedBy;
 import net.craftium.modernboard.ModernBoard;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.incendo.cloud.annotations.Argument;
-import org.incendo.cloud.annotations.Command;
-import org.incendo.cloud.annotations.Flag;
-import org.incendo.cloud.annotations.Permission;
-import org.incendo.cloud.annotations.ProxiedBy;
 
 public class ToggleCommand
 {
@@ -19,9 +19,9 @@ public class ToggleCommand
         this.plugin = plugin;
     }
 
-    @Command("modernboard|mb toggle")
-    @ProxiedBy("sidebar|sb")
-    @Permission("modernboard.command.toggle")
+    @CommandMethod("modernboard|mb toggle")
+    @ProxiedBy("sidebar")
+    @CommandPermission("modernboard.command.toggle")
     public void toggleSelf(Player player)
     {
         boolean active = plugin.getScoreboardManager().hasActiveBoard(player);
@@ -38,10 +38,10 @@ public class ToggleCommand
         }
     }
 
-    @Command("modernboard|mb toggle <player>")
-    @ProxiedBy("sidebar|sb")
-    @Permission("modernboard.command.toggle.other")
-    public void toggleOther(CommandSourceStack source, @Argument Player player,
+    @CommandMethod("modernboard|mb toggle <player>")
+    @ProxiedBy("sidebar")
+    @CommandPermission("modernboard.command.toggle.other")
+    public void toggleOther(CommandSender sender, @Argument("player") Player player,
                             @Flag(value = "silent", aliases = "s") boolean silent)
     {
         boolean active = plugin.getScoreboardManager().hasActiveBoard(player);
@@ -49,7 +49,7 @@ public class ToggleCommand
         if(active)
         {
             plugin.getScoreboardManager().removePlayer(player);
-            source.getSender().sendMessage(plugin.getMessages().get("scoreboard-toggle-off-other",
+            sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-off-other",
                     Placeholder.component("target", player.name())));
             if(!silent)
                 player.sendMessage(plugin.getMessages().get("scoreboard-toggle-off"));
@@ -57,7 +57,7 @@ public class ToggleCommand
         else
         {
             plugin.getScoreboardManager().addPlayer(player);
-            source.getSender().sendMessage(plugin.getMessages().get("scoreboard-toggle-on-other",
+            sender.sendMessage(plugin.getMessages().get("scoreboard-toggle-on-other",
                     Placeholder.component("target", player.name())));
             if(!silent)
                 player.sendMessage(plugin.getMessages().get("scoreboard-toggle-on"));

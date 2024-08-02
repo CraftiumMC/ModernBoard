@@ -7,8 +7,8 @@ import net.craftium.modernboard.command.executors.OnOffCommand;
 import net.craftium.modernboard.command.executors.ReloadCommand;
 import net.craftium.modernboard.command.executors.ToggleCommand;
 import net.craftium.modernboard.config.Messages;
-import net.craftium.modernboard.config.UserAnimations;
 import net.craftium.modernboard.config.Settings;
+import net.craftium.modernboard.config.UserAnimations;
 import net.craftium.modernboard.listeners.PlayerListener;
 import net.craftium.modernboard.managers.ScoreboardManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -61,6 +61,11 @@ public class ModernBoard extends JavaPlugin
     private void registerCommands()
     {
         commandManager.registerCommands(new OnOffCommand(this), new ReloadCommand(this), new ToggleCommand(this));
+    }
+
+    public CommandManager getCommandManager()
+    {
+        return commandManager;
     }
 
     public Messages getMessages()
