@@ -36,9 +36,9 @@ public class TextUtil
         return PLAIN_SERIALIZER.serialize(text);
     }
 
-    public static Component miniMessage(String text)
+    public static Component miniMessage(String text, TagResolver... placeholders)
     {
-        return MINI_MESSAGE.deserialize(text);
+        return MINI_MESSAGE.deserialize(text, placeholders);
     }
 
     public static Component placeholderAndParse(Player player, String text)

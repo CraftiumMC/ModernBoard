@@ -15,6 +15,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <cloud.version>2.0.0-SNAPSHOT</cloud.version>
         <scoreboardlib.version>2.1.11</scoreboardlib.version>
     </properties>
 
@@ -74,6 +75,19 @@
             <version>2.11.5</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Cloud -->
+        <dependency>
+            <groupId>org.incendo</groupId>
+            <artifactId>cloud-paper</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.incendo</groupId>
+            <artifactId>cloud-annotations</artifactId>
+            <version>2.0.0-rc.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -95,6 +109,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+
+                    <compilerArgs>-parameters</compilerArgs>
                 </configuration>
             </plugin>
 
@@ -121,7 +137,12 @@
                     <relocations>
                         <relocation>
                             <pattern>net.megavex.scoreboardlibrary</pattern>
-                            <shadedPattern>net.craftium.libs.scoreboardlibrary</shadedPattern>
+                            <shadedPattern>net.craftium.modernboard.libs.scoreboardlibrary</shadedPattern>
+                        </relocation>
+
+                        <relocation>
+                            <pattern>org.incendo.cloud</pattern>
+                            <shadedPattern>net.craftium.modernboard.libs.cloud</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

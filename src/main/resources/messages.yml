@@ -1,0 +1,14 @@
+# ModernBoard Language configuration file
+# You may use MiniMessage to format the messages:
+#   Web viewer: https://webui.advntr.dev/
+#   Format: https://docs.advntr.dev/minimessage/format.html
+
+prefix: "<green>Modern</green><dark_green>Board</dark_green> <gray>»</gray> "
+
+scoreboard-toggle-on: "<green>Your scoreboard has been toggled on."
+scoreboard-toggle-on-other: "<green>Toggled on <target>'s scoreboard."
+scoreboard-toggle-off: "<gray>Your scoreboard has been toggled off."
+scoreboard-toggle-off-other: "<gray>Toggled off <target>'s scoreboard."
+
+# DO NOT TOUCH!
+version: 1

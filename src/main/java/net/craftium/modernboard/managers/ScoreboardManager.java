@@ -26,6 +26,11 @@ public class ScoreboardManager
         this.api = loadLibrary();
     }
 
+    public boolean hasActiveBoard(Player player)
+    {
+        return boards.containsKey(player);
+    }
+
     public Map<Player, Scoreboard> getBoards()
     {
         return Collections.unmodifiableMap(boards);
