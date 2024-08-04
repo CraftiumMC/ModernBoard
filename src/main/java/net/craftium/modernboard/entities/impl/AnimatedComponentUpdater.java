@@ -2,7 +2,7 @@ package net.craftium.modernboard.entities.impl;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.animations.AnimationParser;
-import net.craftium.modernboard.boards.SidebarSettings;
+import net.craftium.modernboard.entities.SidebarSettings;
 import net.craftium.modernboard.entities.SidebarComponent;
 import net.craftium.modernboard.entities.SidebarComponentUpdater;
 import net.craftium.modernboard.utils.FrameList;

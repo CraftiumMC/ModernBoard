@@ -2,7 +2,7 @@ package net.craftium.modernboard.config.loader;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.animations.impl.ReplacingAnimation;
-import net.craftium.modernboard.boards.SidebarSettings;
+import net.craftium.modernboard.entities.SidebarSettings;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;

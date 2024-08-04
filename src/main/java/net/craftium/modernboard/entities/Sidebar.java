@@ -1,7 +1,6 @@
 package net.craftium.modernboard.entities;
 
 import net.craftium.modernboard.ModernBoard;
-import net.craftium.modernboard.boards.SidebarSettings;
 import net.craftium.modernboard.entities.impl.AnimatedComponentUpdater;
 import net.craftium.modernboard.entities.impl.SidebarLineComponent;
 import net.craftium.modernboard.entities.impl.SidebarTitleComponent;

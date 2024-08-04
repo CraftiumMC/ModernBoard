@@ -1,7 +1,7 @@
 package net.craftium.modernboard.config.loader;
 
 import net.craftium.modernboard.ModernBoard;
-import net.craftium.modernboard.boards.SidebarSettings;
+import net.craftium.modernboard.entities.SidebarSettings;
 
 import java.io.File;
 

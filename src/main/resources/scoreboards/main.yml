@@ -1,4 +1,13 @@
-priority: 1
+# Settings for the assignment of this scoreboard
+settings:
+  # When multiple criteria is met, the lowest priority will be assigned over higher ones
+  # Example: Priority 1 will be assigned over Priority 2
+  priority: 1
+  # Assignment criteria, is this is not defined then the scoreboard will be assigned to all players
+  criteria:
+    1:
+      type: PERMISSION
+      value: "modernboard.scoreboard.main"
 
 lines:
   - frames:

@@ -1,8 +1,10 @@
 package net.craftium.modernboard.managers;
 
 import net.craftium.modernboard.ModernBoard;
-import net.craftium.modernboard.boards.SidebarSettings;
+import net.craftium.modernboard.criteria.CriteriaSettings;
 import net.craftium.modernboard.entities.Sidebar;
+import net.craftium.modernboard.entities.SidebarSettings;
+import net.craftium.modernboard.utils.AddingBoolean;
 import net.megavex.scoreboardlibrary.api.ScoreboardLibrary;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -106,10 +108,19 @@ public class SidebarManager
     {
         List<SidebarSettings> sidebars = plugin.getSettings().sidebars;
 
-        // TODO check permissions and player settings
-
         return sidebars.stream()
+                // Check assignment criteria
+                .filter(sidebar -> checkCriteria(sidebar, player))
+                // Order by priority
                 .min(Comparator.comparingInt(SidebarSettings::priority))
                 .orElse(null);
+    }
+
+    private boolean checkCriteria(SidebarSettings settings, Player player)
+    {
+        AddingBoolean check = new AddingBoolean(settings.criteriaOperator());
+        for(CriteriaSettings criterion : settings.criteria())
+            check.add(criterion.type().getChecker().isMet(player, criterion.value()));
+        return check.getResult();
     }
 }
