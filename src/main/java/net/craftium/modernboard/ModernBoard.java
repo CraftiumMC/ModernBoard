@@ -54,8 +54,10 @@ public class ModernBoard extends JavaPlugin
 
     public void reloadPlugin()
     {
+        sidebarManager.removeAllBoards();
         settings.reload();
         userAnimations.reload();
+        getServer().getOnlinePlayers().forEach(sidebarManager::addPlayer);
     }
 
     private void registerCommands()

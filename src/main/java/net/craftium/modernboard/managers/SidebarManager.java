@@ -73,13 +73,18 @@ public class SidebarManager
         sidebar.close();
     }
 
+    public void removeAllBoards()
+    {
+        boards.values().forEach(Sidebar::close);
+        boards.clear();
+    }
+
     public void close()
     {
         if(api == null || api.closed())
             return;
 
-        boards.values().forEach(Sidebar::close);
-        boards.clear();
+        removeAllBoards();
         api.close();
     }
 
