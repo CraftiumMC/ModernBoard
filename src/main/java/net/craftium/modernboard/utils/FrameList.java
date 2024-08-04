@@ -14,11 +14,4 @@ public class FrameList extends LinkedList<String>
     {
         super(c);
     }
-
-    public String next()
-    {
-        String next = removeFirst();
-        addLast(next);
-        return next;
-    }
 }
