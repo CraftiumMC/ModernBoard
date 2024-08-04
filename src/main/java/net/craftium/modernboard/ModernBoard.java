@@ -9,8 +9,13 @@ import net.craftium.modernboard.command.executors.ToggleCommand;
 import net.craftium.modernboard.config.Messages;
 import net.craftium.modernboard.config.Settings;
 import net.craftium.modernboard.config.UserAnimations;
+import net.craftium.modernboard.listeners.LuckPermsListener;
 import net.craftium.modernboard.listeners.PlayerListener;
 import net.craftium.modernboard.managers.SidebarManager;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.event.user.UserDataRecalculateEvent;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ModernBoard extends JavaPlugin
@@ -37,9 +42,9 @@ public class ModernBoard extends JavaPlugin
 
         this.commandManager = new CommandManager(this);
         this.sidebarManager = new SidebarManager(this);
-        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         registerCommands();
+        registerListeners();
 
         // if for some reason there are players online when the plugin is enabled, assign them a sidebar
         getServer().getOnlinePlayers().forEach(sidebarManager::addPlayer);
@@ -63,6 +68,24 @@ public class ModernBoard extends JavaPlugin
     private void registerCommands()
     {
         commandManager.registerCommands(new OnOffCommand(this), new ReloadCommand(this), new ToggleCommand(this));
+    }
+
+    private void registerListeners()
+    {
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new PlayerListener(this), this);
+
+        // If LuckPerms is available we will use it to listen to permission changes
+        if(pluginManager.isPluginEnabled("LuckPerms"))
+        {
+            LuckPerms luckPerms = LuckPermsProvider.get();
+            LuckPermsListener listener = new LuckPermsListener(this);
+            //noinspection resource
+            luckPerms.getEventBus().subscribe(this, UserDataRecalculateEvent.class, listener::onUserDataRecalculate);
+            getSLF4JLogger().info("LuckPerms has been detected. Listening to permission changes.");
+        }
+        else
+            getSLF4JLogger().warn("LuckPerms has not been detected. Permission-based assignments will not be applied instantly.");
     }
 
     public CommandManager getCommandManager()

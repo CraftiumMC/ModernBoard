@@ -88,6 +88,14 @@
             <artifactId>cloud-annotations</artifactId>
             <version>${cloud.version}</version>
         </dependency>
+
+        <!-- LuckPerms -->
+        <dependency>
+            <groupId>net.luckperms</groupId>
+            <artifactId>api</artifactId>
+            <version>5.4</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
