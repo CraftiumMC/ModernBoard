@@ -1,3 +1,8 @@
+# ModernBoard "Main" Scoreboard configuration file
+# You may use MiniMessage to format the messages:
+#   Web viewer: https://webui.advntr.dev/
+#   Format: https://docs.advntr.dev/minimessage/format.html
+
 # Settings for the assignment of this scoreboard
 settings:
   # When multiple criteria is met, the lowest priority will be assigned over higher ones
@@ -11,20 +16,31 @@ settings:
 
 lines:
   - frames:
-      - "<powered-by>"
+      - "[powered-by][/powered-by]"
     interval: 2
   - frames:
-      - "<dark_gray><st>--------------------------</st></dark_gray>"
+      - "[rainbow]<st>--------------------------</st>[/rainbow]"
+    interval: 2
   - frames:
-      - "L"
-      - "Li"
-      - "Lin"
-      - "Line"
-      - "Line 1"
+      - "<dark_aqua>»</dark_aqua> <green><b>Player:</b></green>"
+  - frames:
+      - "<gray>Welcome,</gray> %player_name%"
+  - frames:
+      - ""
+  - frames:
+      - "<dark_aqua>»</dark_aqua> <green><b>Location:</b></green>"
+      - "<dark_aqua>»</dark_aqua> <green><b>World:</b></green>"
+    interval: 50
+  - frames:
+      - "%player_x% %player_y% %player_z%"
+      - "%player_world%"
+    interval: 50
+  - frames:
+      - ""
+  - frames:
+      - "[flash]<yellow>mc.example.com</yellow>[/flash]"
+      - "[pause 10]<yellow>mc.example.com</yellow>[/pause]"
     interval: 5
   - frames:
-      - "Line 2"
-  - frames:
-      - "Line 3"
-  - frames:
-      - "<dark_gray><st>--------------------------</st></dark_gray>"
+      - "[rainbow]<st>--------------------------</st>[/rainbow]"
+    interval: 2

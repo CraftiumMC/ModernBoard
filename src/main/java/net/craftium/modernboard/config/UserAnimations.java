@@ -25,6 +25,9 @@ public class UserAnimations extends Configuration
         for(Map.Entry<Object, ? extends ConfigurationNode> entry : map.entrySet())
         {
             ConfigurationNode node = entry.getValue();
+            if(!node.isMap())
+                continue;
+
             Animation animation = node.get(ReplacingAnimation.class);
             if(animation == null)
                 continue;

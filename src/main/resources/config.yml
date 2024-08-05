@@ -1,0 +1,6 @@
+# ModernBoard configuration file
+
+# DO NOT TOUCH!
+version: 1
+
+check-updates: true
