@@ -1,5 +1,6 @@
 package net.craftium.modernboard.entities;
 
+import net.craftium.modernboard.entities.Sidebar.ComponentUpdate;
 import org.bukkit.entity.Player;
 
 public interface SidebarComponentUpdater
@@ -8,5 +9,5 @@ public interface SidebarComponentUpdater
 
     SidebarComponent getComponent();
 
-    void update(Player player);
+    ComponentUpdate update(Player player);
 }

@@ -1,5 +1,6 @@
 package net.craftium.modernboard.entities.impl;
 
+import net.craftium.modernboard.entities.Sidebar.ComponentUpdate;
 import net.craftium.modernboard.entities.SidebarComponent;
 import net.craftium.modernboard.entities.SidebarComponentUpdater;
 import net.craftium.modernboard.utils.TextUtil;
@@ -30,9 +31,9 @@ public class StaticComponentUpdater implements SidebarComponentUpdater
     }
 
     @Override
-    public void update(Player player)
+    public ComponentUpdate update(Player player)
     {
         Component display = TextUtil.placeholderAndParse(player, line);
-        component.setText(display);
+        return new ComponentUpdate(component, display);
     }
 }

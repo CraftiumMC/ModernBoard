@@ -2,9 +2,10 @@ package net.craftium.modernboard.entities.impl;
 
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.animations.AnimationParser;
-import net.craftium.modernboard.entities.SidebarSettings;
+import net.craftium.modernboard.entities.Sidebar.ComponentUpdate;
 import net.craftium.modernboard.entities.SidebarComponent;
 import net.craftium.modernboard.entities.SidebarComponentUpdater;
+import net.craftium.modernboard.entities.SidebarSettings;
 import net.craftium.modernboard.utils.FrameList;
 import net.craftium.modernboard.utils.TextUtil;
 import net.kyori.adventure.text.Component;
@@ -45,7 +46,7 @@ public class AnimatedComponentUpdater implements SidebarComponentUpdater
     }
 
     @Override
-    public void update(Player player)
+    public ComponentUpdate update(Player player)
     {
         if(currentFrame >= frames.size() - 1)
             this.currentFrame = 0;
@@ -53,7 +54,7 @@ public class AnimatedComponentUpdater implements SidebarComponentUpdater
             ++this.currentFrame;
 
         Component display = TextUtil.placeholderAndParse(player, frames.get(currentFrame));
-        component.setText(display);
+        return new ComponentUpdate(component, display);
     }
 
     private FrameList createFrameList(FrameList unparsedFrames, Player player)

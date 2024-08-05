@@ -6,6 +6,7 @@ import net.craftium.modernboard.entities.impl.SidebarLineComponent;
 import net.craftium.modernboard.entities.impl.SidebarTitleComponent;
 import net.craftium.modernboard.entities.impl.StaticComponentUpdater;
 import net.craftium.modernboard.tasks.SidebarUpdateTask;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -13,6 +14,8 @@ import java.lang.ref.WeakReference;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static net.craftium.modernboard.utils.TextUtil.containsPlaceholders;
 import static net.megavex.scoreboardlibrary.api.sidebar.Sidebar.MAX_LINES;
@@ -23,6 +26,7 @@ public class Sidebar
     private final int tickRate;
     private final List<SidebarComponentUpdater> components;
     private final net.megavex.scoreboardlibrary.api.sidebar.Sidebar api;
+    private final Queue<ComponentUpdate> updates;
     private final WeakReference<Player> player;
 
     private int lastTick = 0;
@@ -31,6 +35,7 @@ public class Sidebar
     {
         this.components = new LinkedList<>();
         this.api = plugin.getSidebarManager().getLibrary().createSidebar(MAX_LINES, player.locale());
+        this.updates = new ConcurrentLinkedQueue<>();
         this.player = new WeakReference<>(player);
 
         SidebarSettings.Line title = settings.lines().getFirst();
@@ -70,10 +75,15 @@ public class Sidebar
         for(SidebarComponentUpdater component : components)
         {
             if(!checkInterval || component.requiresUpdate(lastTick))
-                component.update(getPlayer());
+                updates.add(component.update(getPlayer()));
         }
 
         this.lastTick += tickRate;
+
+        // Process queue
+        ComponentUpdate update;
+        while((update = updates.poll()) != null)
+            update.component().setText(update.text());
     }
 
     private SidebarComponentUpdater createComponentUpdater(ModernBoard plugin, Player player, SidebarComponent component, SidebarSettings.Line line)
@@ -100,4 +110,6 @@ public class Sidebar
     {
         return player.get();
     }
+
+    public record ComponentUpdate(SidebarComponent component, Component text) {}
 }
