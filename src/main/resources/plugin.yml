@@ -7,3 +7,7 @@ depend:
   - PlaceholderAPI
 softdepend:
   - LuckPerms
+
+permissions:
+  modernboard.updatenotify:
+    default: op

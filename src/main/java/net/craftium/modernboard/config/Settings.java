@@ -18,6 +18,12 @@ public class Settings extends Configuration
         readConfig(Settings.class, this);
     }
 
+    public boolean checkUpdates;
+    private void _checkUpdates()
+    {
+        this.checkUpdates = getBoolean("check-updates", true);
+    }
+
     public List<SidebarSettings> sidebars;
     private void _sidebars()
     {

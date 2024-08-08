@@ -20,4 +20,12 @@ public class Messages extends Configuration
                 .append(TextUtil.miniMessage(getString(key, key), placeholders))
                 .build();
     }
+
+    public Component withPrefix(Component text)
+    {
+        return Component.text()
+                .append(TextUtil.miniMessage(getString("prefix", "prefix")))
+                .append(text)
+                .build();
+    }
 }

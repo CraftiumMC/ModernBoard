@@ -12,6 +12,7 @@ import net.craftium.modernboard.config.UserAnimations;
 import net.craftium.modernboard.listeners.LuckPermsListener;
 import net.craftium.modernboard.listeners.PlayerListener;
 import net.craftium.modernboard.managers.SidebarManager;
+import net.craftium.modernboard.utils.UpdateChecker;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.event.user.UserDataRecalculateEvent;
@@ -45,6 +46,8 @@ public class ModernBoard extends JavaPlugin
 
         registerCommands();
         registerListeners();
+
+        UpdateChecker.start(this);
 
         // if for some reason there are players online when the plugin is enabled, assign them a sidebar
         getServer().getOnlinePlayers().forEach(sidebarManager::addPlayer);
