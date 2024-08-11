@@ -4,7 +4,7 @@ A **modern**, performant and expandable Scoreboard solution for Minecraft server
 
 ## Downloading
 
-A copy of **ModernBoard** can be purchased at [TBA].
+A copy of **ModernBoard** can be purchased at [BuiltByBit](https://builtbybit.com/resources/49565).
 
 # License Terms
 
