@@ -6,7 +6,7 @@
 
     <groupId>net.craftium</groupId>
     <artifactId>modernboard</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>ModernBoard</name>
     <url>https://craftium.net</url>
@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <cloud.version>1.8.4</cloud.version>
-        <scoreboardlib.version>2.1.11</scoreboardlib.version>
+        <scoreboardlib.version>2.1.12</scoreboardlib.version>
     </properties>
 
     <repositories>
