@@ -4,6 +4,7 @@
 version: 2
 
 # Compatibility mode settings for other plugins.
+# ProtocolLib is required for this option.
 # When ModernBoard detects that another plugin is trying to change the sidebar...
 #   HIDE: ModernBoard will hide the active sidebar until the other plugin removes theirs (default)
 #   OVERRIDE: ModernBoard will block the other plugin from overriding the sidebar
