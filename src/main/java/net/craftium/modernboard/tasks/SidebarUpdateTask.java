@@ -15,6 +15,7 @@ public class SidebarUpdateTask extends BukkitRunnable
     @Override
     public void run()
     {
-        sidebar.update();
+        if(!sidebar.isHidden())
+            sidebar.update();
     }
 }

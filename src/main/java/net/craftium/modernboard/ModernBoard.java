@@ -1,5 +1,6 @@
 package net.craftium.modernboard;
 
+import com.comphenix.protocol.ProtocolLibrary;
 import net.craftium.modernboard.animations.AnimationParser;
 import net.craftium.modernboard.animations.AnimationRegistry;
 import net.craftium.modernboard.command.CommandManager;
@@ -10,6 +11,7 @@ import net.craftium.modernboard.config.Messages;
 import net.craftium.modernboard.config.Settings;
 import net.craftium.modernboard.config.UserAnimations;
 import net.craftium.modernboard.listeners.LuckPermsListener;
+import net.craftium.modernboard.listeners.PacketListener;
 import net.craftium.modernboard.listeners.PlayerListener;
 import net.craftium.modernboard.managers.SidebarManager;
 import net.craftium.modernboard.utils.UpdateChecker;
@@ -77,6 +79,14 @@ public class ModernBoard extends JavaPlugin
     {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerListener(this), this);
+
+        // If ProtocolLib is installed we can use it to detect when other plugins
+        // change the scoreboard
+        if(pluginManager.isPluginEnabled("ProtocolLib"))
+        {
+            ProtocolLibrary.getProtocolManager().addPacketListener(new PacketListener(this));
+            getSLF4JLogger().info("ProtocolLib has been detected. Listening to scoreboard changes.");
+        }
 
         // If LuckPerms is available we will use it to listen to permission changes
         if(pluginManager.isPluginEnabled("LuckPerms"))

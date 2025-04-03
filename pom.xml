@@ -6,7 +6,7 @@
 
     <groupId>net.craftium</groupId>
     <artifactId>modernboard</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <name>ModernBoard</name>
     <url>https://craftium.net</url>
@@ -29,6 +29,11 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -50,14 +55,18 @@
             <groupId>net.megavex</groupId>
             <artifactId>scoreboard-library-implementation</artifactId>
             <version>${scoreboardlib.version}</version>
-            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.megavex</groupId>
+            <artifactId>scoreboard-library-packet-adapter-base</artifactId>
+            <version>${scoreboardlib.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.megavex</groupId>
             <artifactId>scoreboard-library-modern</artifactId>
             <version>${scoreboardlib.version}</version>
-            <scope>runtime</scope>
         </dependency>
 
         <!-- Configurate -->
@@ -108,6 +117,14 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ProtocolLib -->
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>5.3.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -173,11 +190,6 @@
                         <relocation>
                             <pattern>cloud.commandframework</pattern>
                             <shadedPattern>net.craftium.modernboard.libs.cloud</shadedPattern>
-                        </relocation>
-
-                        <relocation>
-                            <pattern>io.leangen.geantyref</pattern>
-                            <shadedPattern>net.craftium.modernboard.libs.geantyref</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

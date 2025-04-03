@@ -1,6 +1,13 @@
 # ModernBoard configuration file
 
 # DO NOT TOUCH!
-version: 1
+version: 2
+
+# Compatibility mode settings for other plugins.
+# When ModernBoard detects that another plugin is trying to change the sidebar...
+#   HIDE: ModernBoard will hide the active sidebar until the other plugin removes theirs (default)
+#   OVERRIDE: ModernBoard will block the other plugin from overriding the sidebar
+#   NONE: ModernBoard will do nothing
+compat-mode: HIDE
 
 check-updates: true

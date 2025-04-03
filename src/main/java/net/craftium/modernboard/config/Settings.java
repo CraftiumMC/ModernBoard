@@ -1,9 +1,11 @@
 package net.craftium.modernboard.config;
 
 import net.craftium.modernboard.ModernBoard;
-import net.craftium.modernboard.entities.SidebarSettings;
 import net.craftium.modernboard.config.loader.Configuration;
+import net.craftium.modernboard.config.loader.ConfigurationMigrator;
 import net.craftium.modernboard.config.loader.SidebarConfig;
+import net.craftium.modernboard.entities.CompatibilityMode;
+import net.craftium.modernboard.entities.SidebarSettings;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,10 +14,19 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Settings extends Configuration
 {
+    public static final int VERSION = 2;
+
     public Settings(ModernBoard plugin)
     {
         super(plugin, "config.yml", "config.yml");
+        migrateConfig(ConfigurationMigrator.versionedMigration());
         readConfig(Settings.class, this);
+    }
+
+    public CompatibilityMode compatMode;
+    private void _compatMode()
+    {
+        this.compatMode = get("compat-mode", CompatibilityMode.class, CompatibilityMode.HIDE);
     }
 
     public boolean checkUpdates;
