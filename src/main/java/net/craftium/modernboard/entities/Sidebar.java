@@ -7,13 +7,11 @@ import net.craftium.modernboard.entities.impl.SidebarTitleComponent;
 import net.craftium.modernboard.entities.impl.StaticComponentUpdater;
 import net.craftium.modernboard.tasks.SidebarUpdateTask;
 import net.kyori.adventure.text.Component;
-import net.megavex.scoreboardlibrary.implementation.packetAdapter.objective.ObjectivePacketAdapter;
-import net.megavex.scoreboardlibrary.implementation.sidebar.AbstractSidebar;
+import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +36,8 @@ public class Sidebar
     public Sidebar(ModernBoard plugin, Player player, SidebarSettings settings)
     {
         this.components = new LinkedList<>();
-        this.api = plugin.getSidebarManager().getLibrary().createSidebar(MAX_LINES, player.locale());
+        this.api = plugin.getSidebarManager().getLibrary().createSidebar(MAX_LINES, player.locale(),
+                "MBSidebar-" + RandomStringUtils.randomAlphanumeric(6));
         this.updates = new ConcurrentLinkedQueue<>();
         this.player = new WeakReference<>(player);
 
@@ -133,20 +132,7 @@ public class Sidebar
 
     public String getObjectiveName()
     {
-        // TODO - Replace Reflection with actual API call when it (hopefully) is implemented
-        ObjectivePacketAdapter adapter = ((AbstractSidebar) api).packetAdapter();
-        Class<?> clazz = adapter.getClass().getSuperclass();
-
-        try
-        {
-            Field field = clazz.getDeclaredField("objectiveName");
-            field.setAccessible(true);
-            return (String) field.get(adapter);
-        }
-        catch(NoSuchFieldException | IllegalAccessException e)
-        {
-            throw new RuntimeException("Failed to read objective name from " + clazz.getName(), e);
-        }
+        return api.objectiveName();
     }
 
     public record ComponentUpdate(SidebarComponent component, Component text) {}
