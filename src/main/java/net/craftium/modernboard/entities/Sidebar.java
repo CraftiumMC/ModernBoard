@@ -7,7 +7,7 @@ import net.craftium.modernboard.entities.impl.SidebarTitleComponent;
 import net.craftium.modernboard.entities.impl.StaticComponentUpdater;
 import net.craftium.modernboard.tasks.SidebarUpdateTask;
 import net.kyori.adventure.text.Component;
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
