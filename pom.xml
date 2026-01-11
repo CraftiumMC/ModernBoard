@@ -6,7 +6,7 @@
 
     <groupId>net.craftium</groupId>
     <artifactId>modernboard</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7-SNAPSHOT</version>
 
     <name>ModernBoard</name>
     <url>https://craftium.net</url>
@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <cloud.version>1.8.4</cloud.version>
-        <scoreboardlib.version>2.4.3</scoreboardlib.version>
+        <scoreboardlib.version>2.4.4</scoreboardlib.version>
     </properties>
 
     <repositories>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>1.21.11-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
