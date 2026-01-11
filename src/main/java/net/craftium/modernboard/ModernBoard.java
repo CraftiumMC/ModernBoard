@@ -1,6 +1,5 @@
 package net.craftium.modernboard;
 
-import com.comphenix.protocol.ProtocolLibrary;
 import net.craftium.modernboard.animations.AnimationParser;
 import net.craftium.modernboard.animations.AnimationRegistry;
 import net.craftium.modernboard.command.CommandManager;
@@ -10,8 +9,8 @@ import net.craftium.modernboard.command.executors.ToggleCommand;
 import net.craftium.modernboard.config.Messages;
 import net.craftium.modernboard.config.Settings;
 import net.craftium.modernboard.config.UserAnimations;
-import net.craftium.modernboard.listeners.PacketListener;
 import net.craftium.modernboard.listeners.PlayerListener;
+import net.craftium.modernboard.managers.ProtocolLibManager;
 import net.craftium.modernboard.managers.SidebarManager;
 import net.craftium.modernboard.utils.UpdateChecker;
 import org.bukkit.plugin.PluginManager;
@@ -80,7 +79,7 @@ public class ModernBoard extends JavaPlugin
         // change the scoreboard
         if(pluginManager.isPluginEnabled("ProtocolLib"))
         {
-            ProtocolLibrary.getProtocolManager().addPacketListener(new PacketListener(this));
+            ProtocolLibManager.init(this);
             getSLF4JLogger().info("ProtocolLib has been detected. Listening to scoreboard changes.");
         }
 

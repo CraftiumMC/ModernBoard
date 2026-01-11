@@ -3,6 +3,7 @@ package net.craftium.modernboard.listeners;
 import com.comphenix.protocol.events.ListeningWhitelist;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.wrappers.EnumWrappers.DisplaySlot;
 import net.craftium.modernboard.ModernBoard;
 import net.craftium.modernboard.entities.Sidebar;
@@ -12,12 +13,12 @@ import static com.comphenix.protocol.PacketType.Play.Server.SCOREBOARD_DISPLAY_O
 import static com.comphenix.protocol.PacketType.Play.Server.SCOREBOARD_OBJECTIVE;
 import static com.comphenix.protocol.wrappers.EnumWrappers.DisplaySlot.SIDEBAR;
 
-public class PacketListener implements com.comphenix.protocol.events.PacketListener
+public class ScoreboardPacketListener implements PacketListener
 {
     private final ModernBoard plugin;
     private final ListeningWhitelist whitelist;
 
-    public PacketListener(ModernBoard plugin)
+    public ScoreboardPacketListener(ModernBoard plugin)
     {
         this.plugin = plugin;
         this.whitelist = ListeningWhitelist.newBuilder().highest()
