@@ -57,18 +57,6 @@
             <version>${scoreboardlib.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.megavex</groupId>
-            <artifactId>scoreboard-library-packet-adapter-base</artifactId>
-            <version>${scoreboardlib.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.megavex</groupId>
-            <artifactId>scoreboard-library-modern</artifactId>
-            <version>${scoreboardlib.version}</version>
-        </dependency>
-
         <!-- Configurate -->
         <dependency>
             <groupId>org.spongepowered</groupId>
